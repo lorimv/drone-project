@@ -25,7 +25,7 @@ class DroneDecorator : public Drone {
   ~DroneDecorator();
   
   /**
-   * @brief update function to be overwritten
+   * @brief update function to be overwritten, calls drone's update when needed
    * 
    * @param dt Delta Time
    * @param scheduler List of all entities in the system
