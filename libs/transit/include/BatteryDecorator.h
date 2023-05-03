@@ -17,7 +17,7 @@
      *
      * @param strategy the strategy to decorate onto
      */
-    BatteryDecorator(IEntity* drone) : DroneDecorator(drone) {charge = 100};
+    BatteryDecorator(IEntity* drone) : DroneDecorator(drone) {charge = 100;};
     
     /**
      * @brief BatteryDecorator Destructor

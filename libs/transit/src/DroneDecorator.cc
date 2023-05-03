@@ -1,10 +1,10 @@
 #include "DroneDecorator.h"
 
-DroneDecorator::DroneDecorator(IEntity drone){
+DroneDecorator::DroneDecorator(IEntity* drone){
   this->drone = drone;
 }
 
-CelebrationDecorator::~CelebrationDecorator() {
+DroneDecorator::~DroneDecorator() {
   // Delete dynamically allocated variables
   delete drone;
 }

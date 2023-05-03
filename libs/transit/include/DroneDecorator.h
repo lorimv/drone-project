@@ -7,7 +7,7 @@
  * @brief this class inhertis from the IEntity class and is represents
  * an abstract drone decorator template.
  */
-class DroneDecorator : public Drone {
+class DroneDecorator : public IEntity {
  protected:
   IEntity* drone;
   
