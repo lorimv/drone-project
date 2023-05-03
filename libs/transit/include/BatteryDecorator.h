@@ -44,7 +44,7 @@
     /**
      * @brief Returns the nearest available recharge station
      */
-    IEntity* GetNearestCharger(IEntity* d);
+    IEntity* GetNearestCharger(IEntity* d, std::vector<IEntity*> scheduler);
   };
 
 #endif

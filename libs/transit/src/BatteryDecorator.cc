@@ -29,7 +29,7 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
   return false;
 }
 
-IEntity* BatteryDecorator::GetNearestCharger(IEntity* d){
+IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> scheduler){
   float minDis = std::numeric_limits<float>::max();
   IEntity* closest_charger;
   for (auto entity: scheduler){
@@ -52,6 +52,7 @@ IEntity* BatteryDecorator::GetNearestCharger(IEntity* d){
 void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   bool charging;//here
   bool needCharge;
+  BeelineStrategy* toCharger;
   
   if (charging) { //if at a charger
     charge += (dt* .1);
@@ -64,15 +65,28 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   
   else if (drone->GetAvailability()) { //If Drone waiting for trip
     drone->GetNearestEntity(scheduler);
-    if (!(drone->GetAvailability()){//if it found a trip...
-      needCharge = NeedsCharge(dt, scheduler)
+    if (!(drone->GetAvailability())){//if it found a trip...
+      if (NeedsCharge(dt, scheduler)){
+        toCharger = new BeelineStrategy(simDrone->GetPosition(), 
+                                        GetNearestCharger(drone)->GetPosition());
+        needCharge = true;
+      }  
       return;
     }
   }
   
   if (needCharge) {
-    drone
-  } else {
+    if (toCharger->IsCompleted()) {
+      needCharge = false;
+      charging = true;
+      return;
+    } else {
+      toCharger->Move(drone, dt);
+      return;
+    }
+  }
+  
+  else {
     drone->Update(dt, scheduler);
   }
   
