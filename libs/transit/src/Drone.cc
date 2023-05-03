@@ -35,7 +35,7 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
   for (auto entity : scheduler) {
     if (entity->GetAvailability()) {
       float disToEntity = this->position.Distance(entity->GetPosition());
-      if (disToEntity <= minDis) 
+      if (disToEntity <= minDis) {
         minDis = disToEntity;
         nearestEntity = entity;
     }
@@ -54,33 +54,37 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
     toRobot = new BeelineStrategy(position, destination);
 
     std::string strat = nearestEntity->GetStrategyName();
-    if (strat == "astar")
+    if (strat == "astar"){
       toFinalDestination =
         new JumpDecorator(new AstarStrategy(destination, finalDestination, graph));
-    else if (strat == "dfs")
+    }
+    else if (strat == "dfs"){
       toFinalDestination =
         new SpinDecorator(new JumpDecorator(new DfsStrategy(destination, finalDestination, graph)));
-    else if (strat == "dijkstra")
+    }
+    else if (strat == "dijkstra"){
       toFinalDestination =
         new JumpDecorator(new SpinDecorator(new DijkstraStrategy(destination, finalDestination, graph)));
-    else
+    }
+    else {
       toFinalDestination = new BeelineStrategy(destination, finalDestination);
+    }
   }
+}
 
 
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
   if (available)
     GetNearestEntity(scheduler);
-
   if (toRobot) {
     toRobot->Move(this, dt);
-
     if (toRobot->IsCompleted()) {
       delete toRobot;
       toRobot = nullptr;
       pickedUp = true;
     }
-  } else if (toFinalDestination) {
+  }
+    else if (toFinalDestination) {
     toFinalDestination->Move(this, dt);
 
     if (nearestEntity && pickedUp) {
