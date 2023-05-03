@@ -122,17 +122,20 @@ void Drone::Jump(double height) {
 
 Drone& Drone::operator=(const Drone& drone) {
 
-    drone->details = this->details;
-    drone->position = this->position;
-    drone->direction = this->direction;
-    drone->color = this->color;
-    drone->jumpHeight = this->jumpHeight;
-    drone->goUp = this->goUp;
-    drone->destination = this->destination;
-    drone->speed = this->speed;
-    drone->available = this->available;
-    drone->pickedUp = this->pickedUp;
-    drone->nearestEntity = this->nearestEntity;
-    drone->toRobot = this->toRobot;
-    drone->toFinalDestination = this->toFinalDestination;
+  this->details = drone.details;
+  this->position = drone.position;
+  this->direction = drone.direction;
+  this->color = drone.color;
+  this->jumpHeight = drone.jumpHeight;
+  this->goUp = drone.goUp;
+  this->destination = drone.destination;
+  this->speed = drone.speed;
+  this->available = drone.available;
+  this->pickedUp = drone.pickedUp;
+  this->nearestEntity = drone.nearestEntity;
+  this->toRobot = drone.toRobot;
+  this->toFinalDestination = drone.toFinalDestination;
+
+  return *this;
+    
 }
