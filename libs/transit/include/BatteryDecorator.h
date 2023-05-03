@@ -28,6 +28,11 @@
      * @brief Update the drone factoring in battery logic
      */
     virtual void Update(double dt, std::vector<IEntity*> scheduler);
+
+    /**
+     * @brief Getter for accessing battery level
+     */
+    int GetBatteryLevel() { return charge; }
   };
 
 #endif
