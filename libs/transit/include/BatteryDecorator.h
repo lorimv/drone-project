@@ -2,6 +2,7 @@
 #define BATTERY_DECORATOR_H_
 
 #include "DroneDecorator.h"
+#include "IStrategy.h"
 
 /**
  * @brief this class inhertis from the DroneDecorator class and is represents
