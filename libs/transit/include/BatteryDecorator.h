@@ -39,12 +39,12 @@
      * @brief Checks if drone has enough charge to complete the trip
      * and get to the nearest recharge station after the trip.
      */
-    bool NeedsCharge();
+    bool NeedsCharge(double dt);
 
     /**
      * @brief Returns the nearest available recharge station
      */
-    IEntity* GetNearestCharger(double dt);
+    IEntity* GetNearestCharger();
   };
 
 #endif

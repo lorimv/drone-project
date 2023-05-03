@@ -1,4 +1,5 @@
 #include "BatteryDecorator.h"
+#include "BeelineStrategy.h"
 
 BatteryDecorator::~BatteryDecorator() {
   delete drone;
@@ -17,8 +18,8 @@ bool BatteryDecorator::NeedsCharge(double dt) {
   }
   BeelineStrategy* BeeLine = new BeelineStrategy(simDrone->GetPosition(), GetNearestCharger()->GetPosition());
   // simDrone to charger incomplete
-  while (!BeeLine->IsCompleted){
-    BeeLine->move(simDrone, dt);
+  while (!BeeLine->IsCompleted()){
+    BeeLine->Move(simDrone, dt);
     simCharge -= (dt * .001);
     if (simCharge <= 0) {
       return true;
@@ -60,10 +61,10 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
     return;
   }
   
-  else if (drone->GetAvailable()) { //If Drone waiting for trip
+  else if (drone->GetAvailability()) { //If Drone waiting for trip
     drone->GetNearestEntity(scheduler);
-    if (!(drone->GetAvailable())//if it found a trip...
-      if (NeedsCharge())
+    if (!(drone->GetAvailability()){//if it found a trip...
+      if (NeedsCharge()){
         needCharge = true;
         return;
       }
