@@ -8,17 +8,17 @@ bool BatteryDecorator::NeedsCharge(double dt) {
   IEntity* simDrone = drone;
   int simCharge = charge;
   
-  while (!(simDrone->GetAvailable())) {
+  while (!(simDrone->GetAvailability())) {
     simDrone->Update();
     simCharge -= (dt * .001);      //TODO edit battery decrease based on tests
     if (simCharge <= 0) {
       return true;
     }
   }
-  new BeelineStrategy(simDrone->GetPosition(), GetNearestCharger()->GetPosition());
-  
-  while (//simDrone to charger incomplete)}
-    
+  BeelineStrategy* BeeLine = new BeelineStrategy(simDrone->GetPosition(), GetNearestCharger()->GetPosition());
+  // simDrone to charger incomplete
+  while (!BeeLine->IsCompleted){
+    BeeLine->move(simDrone, dt);
     simCharge -= (dt * .001);
     if (simCharge <= 0) {
       return true;
@@ -28,6 +28,20 @@ bool BatteryDecorator::NeedsCharge(double dt) {
 }
 
 IEntity* BatteryDecorator::GetNearestCharger(){
+  float minDis = std::numeric_limits<float>::max();
+  IEntity* closest_charger;
+  for (auto entity: scheduler){
+    JsonObject details = entity->GetDetails();
+    std::string type = details["type"];
+    if (type.compare("charger") == 0){
+      float dis = this->GetPosition().Distance(entity->GetPosition());
+      if (dis < minDis){
+        minDis = dis;
+        closest_charger = entity;
+      }
+    }
+  }
+  return closest_charger;
 
 }
 

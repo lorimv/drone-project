@@ -44,7 +44,7 @@
     /**
      * @brief Returns the nearest available recharge station
      */
-    IEntity* GetNearestCharger();
+    IEntity* GetNearestCharger(double dt);
   };
 
 #endif
