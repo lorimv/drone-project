@@ -5,8 +5,27 @@ BatteryDecorator::~BatteryDecorator() {
 }
 
 void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
-  //if drone has no destination...
-  //drone->Update(dt, scheduler) like normal
+  bool charging;//here
+  bool needCharge;
+  
+  if (charging) { //if at a charger
+    battery += (dt* .1);
+    if (battery >= 100) {
+      battery = 100        
+      charging = false;
+    }
+  }
+  
+  else if (drone->GetAvailable()) { //If Drone waiting for trip
+    drone->GetNearestEntity(scheduler);
+  }
+  
+  if (!drone->GetAvailable()) {
+    
+  }
+  
+  
+  
   
   //else if drone->toRobot
   //Calculate charge needed to get there
