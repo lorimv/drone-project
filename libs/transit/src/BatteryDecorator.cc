@@ -28,14 +28,14 @@ bool BatteryDecorator::NeedsCharge(double dt) {
   return false;
 }
 
-IEntity* BatteryDecorator::GetNearestCharger(){
+IEntity* BatteryDecorator::GetNearestCharger(IEntity* d){
   float minDis = std::numeric_limits<float>::max();
   IEntity* closest_charger;
   for (auto entity: scheduler){
     JsonObject details = entity->GetDetails();
     std::string type = details["type"];
     if (type.compare("charger") == 0){
-      float dis = this->GetPosition().Distance(entity->GetPosition());
+      float dis = d->GetPosition().Distance(entity->GetPosition());
       if (dis < minDis){
         minDis = dis;
         closest_charger = entity;
