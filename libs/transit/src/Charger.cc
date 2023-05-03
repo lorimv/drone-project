@@ -6,7 +6,7 @@ Charger::Charger(JsonObject& obj) : details(obj) {
   JsonArray dir(obj["direction"]);
   direction = {dir[0], dir[1], dir[2]};
 
-  speed = obj["speed"];
+  speed = -1;
 }
 
 Charger::~Charger() {
