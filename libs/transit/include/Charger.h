@@ -62,6 +62,8 @@ class Charger : public IEntity {
    * @param des_ The new destination of the drone
    */
   void SetDestination(Vector3 des_) { destination = des_; }
+  
+  bool GetAvailability() const { return false; }
 
   private:
   JsonObject details;
