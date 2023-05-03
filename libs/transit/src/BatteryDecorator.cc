@@ -5,12 +5,12 @@ BatteryDecorator::~BatteryDecorator() {
   delete drone;
 }
 
-bool BatteryDecorator::NeedsCharge(double dt) {
+bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
   IEntity* simDrone = drone;
   int simCharge = charge;
   
   while (!(simDrone->GetAvailability())) {
-    simDrone->Update();
+    simDrone->Update(dt, scheduler);
     simCharge -= (dt * .001);      //TODO edit battery decrease based on tests
     if (simCharge <= 0) {
       return true;
@@ -55,8 +55,8 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   
   if (charging) { //if at a charger
     charge += (dt* .1);
-    if (battery >= 100) {
-      charge = 100        
+    if (charge >= 100) {
+      charge = 100;      
       charging = false;
     }
     return;
@@ -65,7 +65,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   else if (drone->GetAvailability()) { //If Drone waiting for trip
     drone->GetNearestEntity(scheduler);
     if (!(drone->GetAvailability()){//if it found a trip...
-      needCharge = NeedsCharge(dt)
+      needCharge = NeedsCharge(dt, scheduler)
       return;
     }
   }
@@ -73,7 +73,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   if (needCharge) {
     drone
   } else {
-    drone->Update();
+    drone->Update(dt, scheduler);
   }
   
   

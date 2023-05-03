@@ -39,7 +39,7 @@
      * @brief Checks if drone has enough charge to complete the trip
      * and get to the nearest recharge station after the trip.
      */
-    bool NeedsCharge(double dt);
+    bool NeedsCharge(double dt, std::vector<IEntity*> scheduler);
 
     /**
      * @brief Returns the nearest available recharge station
