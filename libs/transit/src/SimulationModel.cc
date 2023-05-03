@@ -4,6 +4,7 @@
 #include "RobotFactory.h"
 #include "HumanFactory.h"
 #include "HelicopterFactory.h"
+#include "ChargerFactory.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -12,6 +13,7 @@ SimulationModel::SimulationModel(IController& controller)
   AddFactory(new RobotFactory());
   AddFactory(new HumanFactory());
   AddFactory(new HelicopterFactory());
+  AddFactory(new ChargerFactory());
 }
 
 SimulationModel::~SimulationModel() {
@@ -47,7 +49,7 @@ void SimulationModel::ScheduleTrip(JsonObject& details) {
   JsonArray end = details["end"];
   std::cout << name << ": " << start << " --> " << end << std::endl;
 
-  for (auto entity : entities) {  // Add the entity to the scheduler
+  for (auto entity : entities) {  // Add the entity to the scheduler (only robots?)
     JsonObject detailsTemp = entity->GetDetails();
     std::string nameTemp = detailsTemp["name"];
     std::string typeTemp = detailsTemp["type"];

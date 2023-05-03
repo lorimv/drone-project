@@ -16,3 +16,4 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   //drone->Move(dt, scheduler)
   //but also reduce charge, too
 }
+
