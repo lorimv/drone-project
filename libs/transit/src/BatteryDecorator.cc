@@ -27,7 +27,7 @@ bool BatteryDecorator::NeedsCharge(double dt) {
   return false;
 }
 
-BatteryDecorator::GetNearestCharger(){
+IEntity* BatteryDecorator::GetNearestCharger(){
 
 }
 

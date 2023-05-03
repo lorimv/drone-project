@@ -38,9 +38,9 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
       if (disToEntity <= minDis) 
         minDis = disToEntity;
         nearestEntity = entity;
-      }
     }
   }
+}
 
   if (nearestEntity) {
       // set availability to the nearest robot
@@ -66,7 +66,7 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
     else
       toFinalDestination = new BeelineStrategy(destination, finalDestination);
   }
-}
+
 
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
   if (available)
@@ -118,4 +118,21 @@ void Drone::Jump(double height) {
       goUp = true;
     }
   }
+}
+
+Drone& Drone::operator=(const Drone& drone) {
+
+    drone->details = this->details;
+    drone->position = this->position;
+    drone->direction = this->direction;
+    drone->color = this->color;
+    drone->jumpHeight = this->jumpHeight;
+    drone->goUp = this->goUp;
+    drone->destination = this->destination;
+    drone->speed = this->speed;
+    drone->available = this->available;
+    drone->pickedUp = this->pickedUp;
+    drone->nearestEntity = this->nearestEntity;
+    drone->toRobot = this->toRobot;
+    drone->toFinalDestination = this->toFinalDestination;
 }

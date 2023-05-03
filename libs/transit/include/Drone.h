@@ -124,7 +124,7 @@ class Drone : public IEntity {
    * so that drones cannot be copied.
    */
   Drone(const Drone& drone) = delete;
-  Drone& operator=(const Drone& drone) = delete;
+  Drone& operator=(const Drone& drone);
 
  private:
   JsonObject details;

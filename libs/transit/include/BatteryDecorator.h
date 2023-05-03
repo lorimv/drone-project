@@ -34,6 +34,17 @@
      * @brief Getter for accessing battery level
      */
     int GetBatteryLevel() { return charge; }
+
+    /**
+     * @brief Checks if drone has enough charge to complete the trip
+     * and get to the nearest recharge station after the trip.
+     */
+    bool NeedsCharge();
+
+    /**
+     * @brief Returns the nearest available recharge station
+     */
+    IEntity* GetNearestCharger();
   };
 
 #endif
