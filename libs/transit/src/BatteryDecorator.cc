@@ -90,9 +90,9 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   
   else {
     drone->Update(dt, scheduler);
-    // BatteryTracker *tracker;
-    // tracker = tracker->GetInstance();
-    // tracker->updateDepletion(drone, charge);
+    BatteryTracker *tracker;
+    tracker = tracker->getInstance();
+    tracker->updateDepletion(drone, charge);
   }
   
   

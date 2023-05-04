@@ -3,7 +3,7 @@
 
 #include "DroneDecorator.h"
 #include "IStrategy.h"
-#include "BatteryDecorator.h"
+#include "BatteryTracker.h"
 
 /**
  * @brief this class inhertis from the DroneDecorator class and is represents
