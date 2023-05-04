@@ -11,6 +11,8 @@
   class BatteryDecorator : public DroneDecorator {
    private:
     int charge;
+    IStrategy* toCharger = nullptr;
+    bool charging;
   
    public:
     /**
@@ -18,7 +20,7 @@
      *
      * @param strategy the strategy to decorate onto
      */
-    BatteryDecorator(IEntity* drone) : DroneDecorator(drone) {charge = 100;};
+    BatteryDecorator(IEntity* drone) : DroneDecorator(drone) {charge = 100; charging = false;};
     
     /**
      * @brief BatteryDecorator Destructor
