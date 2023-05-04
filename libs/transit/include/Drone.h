@@ -6,6 +6,7 @@
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
+#include "BatteryTracker.h"
 
 // Represents a drone in a physical system.
 // Drones move using euler integration based on a specified
@@ -124,7 +125,11 @@ class Drone : public IEntity {
    * so that drones cannot be copied.
    */
   Drone(const Drone& drone) = delete;
-  Drone& operator=(const Drone& drone);
+  Drone& operator=(const Drone& drone) = delete;
+
+  double getDistance() const { return distance; }
+  void setDistance(double newDistance) { distance = newDistance;}
+  //std::string GetName() {return name; }
 
  private:
   JsonObject details;
@@ -140,6 +145,16 @@ class Drone : public IEntity {
   IEntity* nearestEntity = nullptr;
   IStrategy* toRobot = nullptr;
   IStrategy* toFinalDestination = nullptr;
+
+  // distance variable to keep track of total distance 
+  // travelled by the Drone during a trip
+  double distance; 
+  int tripCount;
+  int rechargeStationVisits;
+  //std::string name;
+
+  // int id
+
 };
 
 #endif
