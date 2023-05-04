@@ -125,7 +125,7 @@ class Drone : public IEntity {
    * so that drones cannot be copied.
    */
   Drone(const Drone& drone) = delete;
-  Drone& operator=(const Drone& drone) = delete;
+  Drone& operator=(const Drone& drone);
 
   double getDistance() const { return distance; }
   void setDistance(double newDistance) { distance = newDistance;}

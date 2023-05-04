@@ -157,9 +157,16 @@ class IEntity {
     return ((float(rand()) / float(RAND_MAX)) * (Max - Min)) + Min;
   }
 
+  std::string GetName() { return name; }
+
+  void SetName(std::string name){
+    this->name = name;
+  }
+
  protected:
   int id;
   const IGraph* graph;
+  std::string name;
 };
 
 #endif

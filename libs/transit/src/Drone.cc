@@ -124,7 +124,7 @@ void Drone::Jump(double height) {
   }
 }
 
-Drone& operator=(const Drone& drone) {
+Drone& Drone::operator=(const Drone& drone) {
 
   this->details = drone.details;
   this->position = drone.position;
