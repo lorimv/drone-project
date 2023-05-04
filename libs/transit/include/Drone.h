@@ -132,6 +132,9 @@ class Drone : public IEntity {
   Drone(const Drone& drone) = delete;
   Drone& operator=(const Drone& drone);
 
+  double getDistance() const { return distance; }
+  void setDistance(double newDistance) { distance = newDistance;}
+
  private:
   JsonObject details;
   Vector3 position;
@@ -146,6 +149,10 @@ class Drone : public IEntity {
   IEntity* nearestEntity = nullptr;
   IStrategy* toRobot = nullptr;
   IStrategy* toFinalDestination = nullptr;
+
+  double distance; 
+  int tripCount;
+  int rechargeStationVisits;
 };
 
 #endif
