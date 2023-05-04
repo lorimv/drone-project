@@ -9,7 +9,8 @@ BatteryDecorator::~BatteryDecorator() {
 }
 
 bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
-  IEntity* simDrone = drone;
+  IEntity* simDrone = new Drone;
+  simDrone = drone;
   int simCharge = charge;
   
   while (!(simDrone->GetAvailability())) {
