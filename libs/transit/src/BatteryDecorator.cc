@@ -1,5 +1,7 @@
 #include "BatteryDecorator.h"
 #include "BeelineStrategy.h"
+#include "BatteryDecorator.h"
+
 
 BatteryDecorator::~BatteryDecorator() {
   delete drone;
@@ -11,7 +13,7 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
   
   while (!(simDrone->GetAvailability())) {
     simDrone->Update(dt, scheduler);
-    simCharge -= (dt * .001);      //TODO edit battery decrease based on tests
+    simCharge -= (dt * .001);      // TODO edit battery decrease based on tests
     if (simCharge <= 0) {
       return true;
     }
@@ -88,6 +90,9 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   
   else {
     drone->Update(dt, scheduler);
+    // BatteryTracker *tracker;
+    // tracker = tracker->GetInstance();
+    // tracker->updateDepletion(drone, charge);
   }
   
   

@@ -3,6 +3,7 @@
 
 #include "DroneDecorator.h"
 #include "IStrategy.h"
+#include "BatteryDecorator.h"
 
 /**
  * @brief this class inhertis from the DroneDecorator class and is represents
@@ -11,6 +12,8 @@
   class BatteryDecorator : public DroneDecorator {
    private:
     int charge;
+    BatteryTracker::BatteryTracker *tracker;
+
   
    public:
     /**
