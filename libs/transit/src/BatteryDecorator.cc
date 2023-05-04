@@ -9,7 +9,7 @@ BatteryDecorator::~BatteryDecorator() {
 }
 
 bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
-  // cout << "1" << endl;
+  // cout << "needscharge" << endl;
   IEntity* simDrone = new Drone();
   simDrone = drone;
   int simCharge = charge;
@@ -35,8 +35,9 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
 }
 
 IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> scheduler){
-  // cout << "2" << endl;
+  cout << "getnearestcharger" << endl;
   float minDis = std::numeric_limits<float>::max();
+  cout << "1" << endl;
   IEntity* closest_charger;
   for (auto entity: scheduler){
     JsonObject details = entity->GetDetails();
@@ -58,7 +59,7 @@ IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> s
 void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
 //here
 //  bool needCharge;
-  // cout << "decupdate" << endl;
+  cout << "decupdate" << endl;
   if (charging) { //if at a charger
     // cout << "1" << endl;
     charge += (dt* .1);
@@ -85,7 +86,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   }
   
   else if (toCharger) {
-    cout << "3" << endl;
+    // cout << "3" << endl;
     if (toCharger->IsCompleted()) {
       delete toCharger;
       toCharger = nullptr;

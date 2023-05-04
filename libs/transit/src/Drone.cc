@@ -39,45 +39,47 @@ Drone::~Drone() {
 }
 
 void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
-  cout << "1" << endl;
+  // cout << "1" << endl;
   float minDis = std::numeric_limits<float>::max();
   for (auto entity : scheduler) {
-    cout << "2" << endl;
+    // cout << "2" << endl;
     if (entity->GetAvailability()) {
-      cout << "3" << endl;
+      // cout << "3" << endl;
       float disToEntity = this->position.Distance(entity->GetPosition());
-      cout << "4" << endl;
+      // cout << "4" << endl;
 
       if (disToEntity <= minDis) {
-        cout << "5" << endl;
+        // cout << "5" << endl;
 
         minDis = disToEntity;
         nearestEntity = entity;
       }
     }
+    // cout << "A" << endl;
+
   }
 
   if (nearestEntity) {
       // set availability to the nearest robot
-    cout << "6" << endl;
+    // cout << "6" << endl;
     
     nearestEntity->SetAvailability(false);
     available = false;
     pickedUp = false;
 
-    cout << "7" << endl;
+    // cout << "7" << endl;
 
     destination = nearestEntity->GetPosition();
     Vector3 finalDestination = nearestEntity->GetDestination();
 
-    cout << "8" << endl;
+    // cout << "8" << endl;
     toRobot = new BeelineStrategy(position, destination);
 
     // std::vector< std::vector<float> > graphNodes = 
 
     std::string strat = nearestEntity->GetStrategyName();
     if (strat == "astar"){
-      cout << "9" << endl;
+      // cout << "9" << endl;
 
       toFinalDestination =
         new JumpDecorator(new AstarStrategy(destination, finalDestination, graph));
@@ -169,8 +171,8 @@ Drone& Drone::operator=(const Drone& drone) {
   this->toRobot = drone.toRobot;
   this->toFinalDestination = drone.toFinalDestination;
 
-  this->graph = drone.graph;
-  // this->SetGraph(drone.graph);
+  // this->graph = drone.graph;
+  this->SetGraph(drone.graph);
   this->id = drone.id;
   this->name = drone.name;
 
