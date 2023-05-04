@@ -11,18 +11,32 @@ using namespace std;
 class BatteryTracker {
 
     public:
+    /**
+    * @brief Get the instance of the Singleton BatteryTracker class
+    */
         static BatteryTracker* getInstance();
-        // called for every update()
-        // void getBatteryLevel(); 
-        // write to a map with (IEntity, depletion)
-        // only call
+        /**
+        * @brief Will update DepletionMap to store current batteryLevel of a drone
+        * @param drone The particular drone that will have its BatteryLevel updated
+        * @param newBatteryLevel new Battery Level of drone
+        */
         void updateDepletion(IEntity* drone, int newBatteryLevel);
 
-        // update Drone's total distance travelled to the value of newDistance
+        /** 
+        * @brief update Drone's total distance travelled to the value of newDistance
+        * @param drone The particular drone that will have its distance updated
+        * @param newDistance new total distance of Drone
+        */
         void updateDistance(IEntity* drone, double newDistance);
-
+        /**
+        * @brief Will increment tripCount for a particular drone
+        * @param drone The particular drone that will have its BatteryLevel updated
+        * @param newCount new Count of trips taken by a drone
+        */
         void updateTripCount(IEntity* drone, int newCount);
- 
+        /**
+        * @brief Will write the contents of the Maps to a CSV file
+        */
         void writeToCSV();
 
         void updateStationVisitCount(IEntity* drone, int newCount);
