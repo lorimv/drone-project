@@ -37,7 +37,7 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
 IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> scheduler){
   cout << "getnearestcharger" << endl;
   float minDis = std::numeric_limits<float>::max();
-  cout << "1" << endl;
+  cout << "11" << endl;
   IEntity* closest_charger;
   for (auto entity: scheduler){
     JsonObject details = entity->GetDetails();
@@ -50,6 +50,7 @@ IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> s
       }
     }
   }
+  cout << "22" << endl;
   return closest_charger;
 
 }
