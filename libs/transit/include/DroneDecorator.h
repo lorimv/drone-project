@@ -2,6 +2,7 @@
 #define DRONE_DECORATOR_H_
 
 #include "IEntity.h"
+#include "Drone.h"
 
 /**
  * @brief this class inhertis from the IEntity class and is represents
@@ -122,6 +123,8 @@ class DroneDecorator : public IEntity {
    * @param scheduler List of all entities in the system
    */
   virtual void Update(double dt, std::vector<IEntity*> scheduler) = 0;
+
+  void SetGraph(const IGraph* graph);
 };
 
 #endif

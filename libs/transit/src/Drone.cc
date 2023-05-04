@@ -10,6 +10,7 @@
 #include "DijkstraStrategy.h"
 #include "JumpDecorator.h"
 #include "SpinDecorator.h"
+using namespace std;
 
 Drone::Drone() {
   position = {0, 0, 0};
@@ -38,30 +39,46 @@ Drone::~Drone() {
 }
 
 void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
+  cout << "1" << endl;
   float minDis = std::numeric_limits<float>::max();
   for (auto entity : scheduler) {
+    cout << "2" << endl;
     if (entity->GetAvailability()) {
+      cout << "3" << endl;
       float disToEntity = this->position.Distance(entity->GetPosition());
+      cout << "4" << endl;
+
       if (disToEntity <= minDis) {
+        cout << "5" << endl;
+
         minDis = disToEntity;
         nearestEntity = entity;
+      }
     }
   }
-}
 
   if (nearestEntity) {
       // set availability to the nearest robot
+    cout << "6" << endl;
+    
     nearestEntity->SetAvailability(false);
     available = false;
     pickedUp = false;
 
+    cout << "7" << endl;
+
     destination = nearestEntity->GetPosition();
     Vector3 finalDestination = nearestEntity->GetDestination();
 
+    cout << "8" << endl;
     toRobot = new BeelineStrategy(position, destination);
+
+    // std::vector< std::vector<float> > graphNodes = 
 
     std::string strat = nearestEntity->GetStrategyName();
     if (strat == "astar"){
+      cout << "9" << endl;
+
       toFinalDestination =
         new JumpDecorator(new AstarStrategy(destination, finalDestination, graph));
     }
@@ -82,8 +99,10 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
 
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
   if (available)
+    cout << "1" << endl;
     GetNearestEntity(scheduler);
   if (toRobot) {
+    cout << "2" << endl;
     toRobot->Move(this, dt);
     if (toRobot->IsCompleted()) {
       delete toRobot;
@@ -92,14 +111,17 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
     }
   }
     else if (toFinalDestination) {
+    cout << "3" << endl;
     toFinalDestination->Move(this, dt);
 
     if (nearestEntity && pickedUp) {
+      cout << "4" << endl;
       nearestEntity->SetPosition(position);
       nearestEntity->SetDirection(direction);
     }
 
     if (toFinalDestination->IsCompleted()) {
+      cout << "5" << endl;
       delete toFinalDestination;
       toFinalDestination = nullptr;
       nearestEntity = nullptr;
@@ -146,6 +168,11 @@ Drone& Drone::operator=(const Drone& drone) {
   this->nearestEntity = drone.nearestEntity;
   this->toRobot = drone.toRobot;
   this->toFinalDestination = drone.toFinalDestination;
+
+  this->graph = drone.graph;
+  // this->SetGraph(drone.graph);
+  this->id = drone.id;
+  this->name = drone.name;
 
   return *this;
     

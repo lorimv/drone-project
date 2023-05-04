@@ -1,7 +1,7 @@
 #include "BatteryDecorator.h"
 #include "BeelineStrategy.h"
 #include "BatteryDecorator.h"
-
+using namespace std;
 
 BatteryDecorator::~BatteryDecorator() {
   delete drone;
@@ -9,6 +9,7 @@ BatteryDecorator::~BatteryDecorator() {
 }
 
 bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
+  // cout << "1" << endl;
   IEntity* simDrone = new Drone();
   simDrone = drone;
   int simCharge = charge;
@@ -34,6 +35,7 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
 }
 
 IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> scheduler){
+  // cout << "2" << endl;
   float minDis = std::numeric_limits<float>::max();
   IEntity* closest_charger;
   for (auto entity: scheduler){
@@ -56,8 +58,9 @@ IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> s
 void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
 //here
 //  bool needCharge;
-  
+  // cout << "decupdate" << endl;
   if (charging) { //if at a charger
+    // cout << "1" << endl;
     charge += (dt* .1);
     if (charge >= 100) {
       charge = 100;      
@@ -67,7 +70,11 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   }
   
   else if (drone->GetAvailability()) { //If Drone waiting for trip
+    // cout << "2" << endl;
+    // cout << (drone->GetDetails())["type"] << endl;
     drone->GetNearestEntity(scheduler);
+    // cout << 
+    // cout << "2a" << endl;
     if (!(drone->GetAvailability())){//if it found a trip...
       if (NeedsCharge(dt, scheduler)){
         toCharger = new BeelineStrategy(drone->GetPosition(), 
@@ -77,7 +84,8 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
     }
   }
   
-  if (toCharger) {
+  else if (toCharger) {
+    cout << "3" << endl;
     if (toCharger->IsCompleted()) {
       delete toCharger;
       toCharger = nullptr;
@@ -90,7 +98,9 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   }
   
   else {
+    // cout << "4" << endl;
     drone->Update(dt, scheduler);
+    // cout << "4a" << endl;
     BatteryTracker *tracker;
     tracker = tracker->getInstance();
     tracker->updateDepletion(drone, charge);
