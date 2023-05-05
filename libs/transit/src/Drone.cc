@@ -101,32 +101,34 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
 
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
   if (available) {
-    cout << "1" << endl;
+    cout << "calling getne" << endl;
     GetNearestEntity(scheduler);
   }
   if (toRobot) {
-    cout << "2" << endl;
+    // cout << "2" << endl;
     toRobot->Move(this, dt);
-    cout << toRobot->IsCompleted() << endl;
+    // cout << toRobot->IsCompleted() << endl;
     if (toRobot->IsCompleted()) {
       cout << "here under completed" << endl;
       delete toRobot;
       toRobot = nullptr;
       pickedUp = true;
     }
+    // cout << "available: " << available << endl;
   }
-    else if (toFinalDestination) {
-    cout << "3" << endl;
+  else if (toFinalDestination) {
+    // cout << "3" << endl;
+    // cout << (this->GetDetails())["type"] << endl;
     toFinalDestination->Move(this, dt);
 
     if (nearestEntity && pickedUp) {
-      cout << "4" << endl;
+      // cout << "4" << endl;
       nearestEntity->SetPosition(position);
       nearestEntity->SetDirection(direction);
     }
 
     if (toFinalDestination->IsCompleted()) {
-      cout << "5" << endl;
+      cout << "end of trip" << endl;
       delete toFinalDestination;
       toFinalDestination = nullptr;
       nearestEntity = nullptr;
@@ -134,7 +136,7 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
       pickedUp = false;
     }
   }
-  cout << "End of drone update" << endl;
+  // cout << "End of drone update" << endl;
 }
 
 void Drone::Rotate(double angle) {

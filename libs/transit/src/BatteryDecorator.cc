@@ -88,10 +88,11 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
        cout << "Under needs charger()" << endl;
       return;
     }
+    // drone->Update(dt, scheduler);
   }
   
   else if (toCharger) {
-    cout << "To charger" << endl;
+    // cout << "To charger" << endl;
     // cout << "3" << endl;
     if (toCharger->IsCompleted()) {
       delete toCharger;
@@ -105,7 +106,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   }
   
   else {
-    cout << "update" << endl;
+    // cout << "update" << endl;
     // cout << "4" << endl;
     drone->Update(dt, scheduler);
     // cout << "4a" << endl;
