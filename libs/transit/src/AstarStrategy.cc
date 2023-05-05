@@ -16,8 +16,8 @@ AstarStrategy::AstarStrategy(Vector3 pos, Vector3 des,
   // cout << "d2:" << des[2] << endl;
 
   // cout << g << endl;
-  cout << "before get path" << endl;
+  //cout << "before get path" << endl;
   path = g->GetPath(start, end, AStar::Default());
-  cout << "after get path" << endl;
+  //cout << "after get path" << endl;
 
 }

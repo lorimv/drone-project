@@ -28,6 +28,7 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
     BeeLine->Move(simDrone, dt);
     simCharge -= (dt * .001);
     if (simCharge <= 0) {
+      cout << "here" << endl;
       return true;
     }
   }
@@ -60,7 +61,7 @@ IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> s
 void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
 //here
 //  bool needCharge;
-  cout << "decupdate" << endl;
+  //cout << "decupdate" << endl;
   if (charging) { //if at a charger
     // cout << "1" << endl;
     charge += (dt* .1);
@@ -72,6 +73,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   }
   
   else if (drone->GetAvailability()) { //If Drone waiting for trip
+    //cout << "In drone->getAvailable" << endl;
     // cout << "2" << endl;
     // cout << (drone->GetDetails())["type"] << endl;
     drone->GetNearestEntity(scheduler);
@@ -79,14 +81,17 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
     // cout << "2a" << endl;
     if (!(drone->GetAvailability())){//if it found a trip...
       if (NeedsCharge(dt, scheduler)){
+       
         toCharger = new BeelineStrategy(drone->GetPosition(), 
                                         GetNearestCharger(drone, scheduler)->GetPosition());
       }  
+       cout << "Under needs charger()" << endl;
       return;
     }
   }
   
   else if (toCharger) {
+    cout << "To charger" << endl;
     // cout << "3" << endl;
     if (toCharger->IsCompleted()) {
       delete toCharger;
@@ -100,13 +105,15 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   }
   
   else {
+    cout << "update" << endl;
     // cout << "4" << endl;
     drone->Update(dt, scheduler);
     // cout << "4a" << endl;
-    BatteryTracker *tracker;
-    tracker = tracker->getInstance();
-    tracker->updateDepletion(drone, charge);
+    //BatteryTracker *tracker;
+    //tracker = tracker->getInstance();
+    //tracker->updateDepletion(drone, charge);
   }
+
   
   
   

@@ -100,13 +100,16 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
 
 
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
-  if (available)
+  if (available) {
     cout << "1" << endl;
     GetNearestEntity(scheduler);
+  }
   if (toRobot) {
     cout << "2" << endl;
     toRobot->Move(this, dt);
+    cout << toRobot->IsCompleted() << endl;
     if (toRobot->IsCompleted()) {
+      cout << "here under completed" << endl;
       delete toRobot;
       toRobot = nullptr;
       pickedUp = true;
@@ -131,6 +134,7 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
       pickedUp = false;
     }
   }
+  cout << "End of drone update" << endl;
 }
 
 void Drone::Rotate(double angle) {

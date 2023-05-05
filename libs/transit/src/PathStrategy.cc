@@ -5,6 +5,7 @@ PathStrategy::PathStrategy(std::vector<std::vector<float>> p)
 
 void PathStrategy::Move(IEntity* entity, double dt) {
   if (IsCompleted())
+    std::cout << "Completed" << std::endl;
     return;
 
   Vector3 vi(path[index][0], path[index][1], path[index][2]);
@@ -15,6 +16,7 @@ void PathStrategy::Move(IEntity* entity, double dt) {
 
   if (entity->GetPosition().Distance(vi) < 4)
     index++;
+std::cout << "End of move" << std::endl;
 }
 
 bool PathStrategy::IsCompleted() {
