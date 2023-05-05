@@ -33,7 +33,7 @@ class BatteryTracker {
         * @param drone The particular drone that will have its BatteryLevel updated
         * @param newCount new Count of trips taken by a drone
         */
-        void updateTripCount(IEntity* drone, int newCount);
+        void updateTripCount(IEntity* drone);
         /**
         * @brief Will write the contents of the Maps to a CSV file
         */

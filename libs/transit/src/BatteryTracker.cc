@@ -32,8 +32,9 @@ void BatteryTracker::updateDistance(IEntity* drone, double newDistance) {
   //  batteryLevelsMap[drone] = newDistance;
 }
 
-void BatteryTracker::updateTripCount(IEntity* drone, int newCount) {
-  numberOfTrips[drone] = newCount;
+void BatteryTracker::updateTripCount(IEntity* drone) {
+  //numberOfTrips[drone] = newCount;
+  numberOfTrips[drone] = (numberOfTrips[drone] + 1);
 }
 
 void BatteryTracker::updateStationVisitCount(IEntity* drone, int newCount) {
@@ -52,8 +53,9 @@ void BatteryTracker::writeToCSV(){
       // cout << "name: " << name << endl;
       int distance = it->second;
       float batteryLevel = batteryLevelsMap[it->first];
+      int tripCount = numberOfTrips[it->first];
       //DataLogger << name << "," << distance << "," << batteryLevel << endl; 
-      DataLogger << name << "," << distance << "," << batteryLevel << "," << endl; 
+      DataLogger << name << "," << distance << "," << batteryLevel << "," << tripCount << "," << endl; 
       
       // batteryLevelMap["Drone1"]
       // DataLogger << "Drone1" << 

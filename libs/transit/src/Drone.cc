@@ -135,16 +135,17 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
     }
 
     if (toFinalDestination->IsCompleted()) {
+      tracker->updateTripCount(this);
       cout << "end of trip" << endl;
       delete toFinalDestination;
       toFinalDestination = nullptr;
       nearestEntity = nullptr;
       available = true;
       pickedUp = false;
+
     //   this->distance = 0.0;
     }
   }
-  // cout << "End of drone update" << endl;
 }
 
 void Drone::Rotate(double angle) {
