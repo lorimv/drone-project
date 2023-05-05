@@ -83,6 +83,12 @@ void SimulationModel::Update(double dt) {
   }
 }
 
+void SimulationModel::writeToCSV() {
+    BatteryTracker *tracker;
+    tracker = tracker->getInstance();
+    tracker->writeToCSV();
+}
+
 void SimulationModel::AddFactory(IEntityFactory* factory) {
   compFactory->AddFactory(factory);
 }

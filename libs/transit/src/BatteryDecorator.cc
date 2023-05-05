@@ -16,7 +16,7 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
   
   while (!(simDrone->GetAvailability())) {
     simDrone->Update(dt, scheduler);
-    simCharge -= (dt * .001);      // TODO edit battery decrease based on tests
+    simCharge -= (dt * 0.000001);      // TODO edit battery decrease based on tests
     if (simCharge <= 0) {
       return true;
     }
@@ -26,7 +26,7 @@ bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
   // simDrone to charger incomplete
   while (!BeeLine->IsCompleted()){
     BeeLine->Move(simDrone, dt);
-    simCharge -= (dt * .001);
+    simCharge -= (dt * 0.000001);
     if (simCharge <= 0) {
       cout << "here" << endl;
       return true;
@@ -59,8 +59,7 @@ IEntity* BatteryDecorator::GetNearestCharger(IEntity* d, std::vector<IEntity*> s
 
 
 void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
-//here
-//  bool needCharge;
+  BatteryTracker *tracker = BatteryTracker::getInstance();
   //cout << "decupdate" << endl;
   if (charging) { //if at a charger
     // cout << "1" << endl;
@@ -85,7 +84,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
         toCharger = new BeelineStrategy(drone->GetPosition(), 
                                         GetNearestCharger(drone, scheduler)->GetPosition());
       }  
-       cout << "Under needs charger()" << endl;
+      cout << "Under needs charge()" << endl;
       return;
     }
     // drone->Update(dt, scheduler);
@@ -106,13 +105,22 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
   }
   
   else {
-    // cout << "update" << endl;
+    // cout << "drone update" << endl;
     // cout << "4" << endl;
+    if(charge > 0) {
+      // cout << "charge before update: " << charge << endl;
+    }
     drone->Update(dt, scheduler);
+    Drone* new_drone = dynamic_cast<Drone*>(drone);
+    // cout << "distance: " << new_drone->getDistance() << endl;
+    // cout << "dt: " << dt  << endl;
+    // cout << "after divide: " << (new_drone->getDistance() / dt) << endl;
+    // cout << "new charge: " << charge - ((new_drone->getDistance() / dt) * 0.00000001) << endl;
+    charge -= ((new_drone->getDistance() / dt) * 0.000001);
     // cout << "4a" << endl;
     //BatteryTracker *tracker;
     //tracker = tracker->getInstance();
-    //tracker->updateDepletion(drone, charge);
+    tracker->updateDepletion(drone, charge);
   }
 
   

@@ -6,7 +6,7 @@
             "name": "Charger1",
       	    "mesh": "assets/model/battery.glb",
       	    "position": [398.292, 270, -228.623],
-      	    "scale": [5, 5, 5],
+      	    "scale": [1, 1, 1],
       	    "rotation": [0, 0, 0, 0],
             "direction": [1,0,0],
             "speed": 0.0,
@@ -24,6 +24,24 @@
             "name": "Drone",
       	    "mesh": "assets/model/drone.glb",
       	    "position": [498.292, 270, -228.623],
+      	    "scale": [0.1, 0.1, 0.1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 30.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0.4, 0.6, 0.4]
+    	  }
+    },
+
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "drone",
+            "name": "DroneTwo",
+      	    "mesh": "assets/model/drone.glb",
+      	    "position": [500.292, 320, -228.623],
       	    "scale": [0.1, 0.1, 0.1],
       	    "rotation": [0, 0, 0, 0],
             "direction": [1,0,0],

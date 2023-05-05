@@ -69,6 +69,7 @@
     </div>
     <div><input type="button" value="Schedule Trip" onclick="schedule()"></div>
     <div><input type="button" value="Add Human" onclick="addHuman()" style="margin-top: 10px;"></div>
+    <div><input type="Button" value="Print CSV" onclick="writeToCSV()" style="margin-top: 20px"></div>
 
     <div id="nameError"></div>
 
@@ -183,6 +184,12 @@
                 "offset": [0, -0.5, 0]
             });
             humanID += 1;
+        }
+
+        function writeToCSV(){
+            api.sendCommand("CSV", {
+                
+            });
         }
     </script>
 </body>

@@ -28,6 +28,7 @@ Drone::Drone(JsonObject& obj) : details(obj) {
   speed = obj["speed"];
 
   available = true;
+//   tracker = tracker->getInstance();
 }
 
 Drone::~Drone() {
@@ -100,6 +101,7 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
 
 
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
+  BatteryTracker *tracker = BatteryTracker::getInstance();
   if (available) {
     cout << "calling getne" << endl;
     GetNearestEntity(scheduler);
@@ -107,6 +109,9 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
   if (toRobot) {
     // cout << "2" << endl;
     toRobot->Move(this, dt);
+    this->distance += dt;
+
+    tracker->updateDistance(this, this->distance);
     // cout << toRobot->IsCompleted() << endl;
     if (toRobot->IsCompleted()) {
       cout << "here under completed" << endl;
@@ -120,6 +125,8 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
     // cout << "3" << endl;
     // cout << (this->GetDetails())["type"] << endl;
     toFinalDestination->Move(this, dt);
+    this->distance += dt;
+    tracker->updateDistance(this, this->distance);
 
     if (nearestEntity && pickedUp) {
       // cout << "4" << endl;
@@ -134,6 +141,7 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
       nearestEntity = nullptr;
       available = true;
       pickedUp = false;
+    //   this->distance = 0.0;
     }
   }
   // cout << "End of drone update" << endl;

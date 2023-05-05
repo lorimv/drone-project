@@ -7,6 +7,7 @@
 #include "IEntity.h"
 #include "Robot.h"
 #include "graph.h"
+#include "BatteryTracker.h"
 using namespace routing;
 
 //--------------------  Model ----------------------------
@@ -61,6 +62,8 @@ class SimulationModel {
    * @param factory - Factory to add into the simulation.
    */
   void AddFactory(IEntityFactory* factory);
+
+  void writeToCSV();
 
  protected:
   IController& controller;

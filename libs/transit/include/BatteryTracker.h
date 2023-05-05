@@ -20,7 +20,7 @@ class BatteryTracker {
         * @param drone The particular drone that will have its BatteryLevel updated
         * @param newBatteryLevel new Battery Level of drone
         */
-        void updateDepletion(IEntity* drone, int newBatteryLevel);
+        void updateDepletion(IEntity* drone, float newBatteryLevel);
 
         /** 
         * @brief update Drone's total distance travelled to the value of newDistance
@@ -46,7 +46,7 @@ class BatteryTracker {
         BatteryTracker();
         static BatteryTracker* instance;
         map<IEntity*, double> distancesMap;
-        map<IEntity*, int> batteryLevelsMap; // updated in BatteryDecorator
+        map<IEntity*, float> batteryLevelsMap; // updated in BatteryDecorator
         map<IEntity*, int> numberOfTrips;
         map<IEntity*, int> rechargeStationVisits; // updated in BatteryDecorator
 

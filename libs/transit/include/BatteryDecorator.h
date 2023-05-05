@@ -11,7 +11,7 @@
  */
   class BatteryDecorator : public DroneDecorator {
    private:
-    float charge;
+    float charge = 100;
     IStrategy* toCharger = nullptr;
     bool charging;
   
@@ -36,7 +36,7 @@
     /**
      * @brief Getter for accessing battery level
      */
-    int GetBatteryLevel() { return charge; }
+    float GetBatteryLevel() { return charge; }
 
     /**
      * @brief Checks if drone has enough charge to complete the trip
