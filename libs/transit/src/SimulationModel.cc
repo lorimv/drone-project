@@ -49,17 +49,10 @@ void SimulationModel::ScheduleTrip(JsonObject& details) {
   JsonArray end = details["end"];
   std::cout << name << ": " << start << " --> " << end << std::endl;
 
-  for (auto entity : entities) {  // Add the entity to the scheduler (only robots?)
+  for (auto entity : entities) {  // Add the entity to scheduler
     JsonObject detailsTemp = entity->GetDetails();
     std::string nameTemp = detailsTemp["name"];
     std::string typeTemp = detailsTemp["type"];
-    // if((name.compare(nameTemp) == 0 && (typeTemp.compare("robot") == 0) && entity->GetAvailability()) || typeTemp.compare("charger")) {
-    //     std::string strategyName = details["search"];
-    //     entity->SetDestination(Vector3(end[0], end[1], end[2]));
-    //     entity->SetStrategyName(strategyName);
-    //     scheduler.push_back(entity);
-    //     break;
-    // }
     if (name.compare(nameTemp) == 0 && (typeTemp.compare("robot") == 0) &&
         entity->GetAvailability()) {
       std::string strategyName = details["search"];

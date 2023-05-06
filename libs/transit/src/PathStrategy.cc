@@ -4,9 +4,7 @@ PathStrategy::PathStrategy(std::vector<std::vector<float>> p)
   : path(p), index(0) {}
 
 void PathStrategy::Move(IEntity* entity, double dt) {
-//   std::cout << "calling path move" << std::endl;
-  if (IsCompleted()){
-    std::cout << "Completed" << std::endl;
+  if (IsCompleted()) {
     return;
   }
 
@@ -16,21 +14,19 @@ void PathStrategy::Move(IEntity* entity, double dt) {
   entity->SetPosition(entity->GetPosition() + dir*entity->GetSpeed()*dt);
   entity->SetDirection(dir);
 
-  if (entity->GetPosition().Distance(vi) < 4){
+  if (entity->GetPosition().Distance(vi) < 4) {
     index++;
   }
-//   std::cout << "End of move" << std::endl;
 }
 
 bool PathStrategy::IsCompleted() {
   return index >= path.size();
 }
 
-PathStrategy& PathStrategy::operator=(const PathStrategy& pathS){
-  std::cout << "P OVERRIDE!!" << std::endl;
+PathStrategy& PathStrategy::operator=(const PathStrategy& pathS) {
   this->path = pathS.path;
   this->index = pathS.index;
-  
   return *this;
 }
+
 

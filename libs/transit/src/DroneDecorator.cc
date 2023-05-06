@@ -1,6 +1,6 @@
 #include "DroneDecorator.h"
 
-DroneDecorator::DroneDecorator(IEntity* drone){
+DroneDecorator::DroneDecorator(IEntity* drone) {
   this->drone = drone;
 // this->drone = new Drone((drone->GetDetails()));
 }

@@ -48,111 +48,71 @@ Drone::~Drone() {
 }
 
 void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
-  // cout << "1" << endl;
   float minDis = std::numeric_limits<float>::max();
   for (auto entity : scheduler) {
-    // cout << "2" << endl;
     if (entity->GetAvailability()) {
-      // cout << "3" << endl;
       float disToEntity = this->position.Distance(entity->GetPosition());
-      // cout << "4" << endl;
-
       if (disToEntity <= minDis) {
-        // cout << "5" << endl;
-
         minDis = disToEntity;
         nearestEntity = entity;
       }
     }
-    // cout << "A" << endl;
-
   }
-
   if (nearestEntity) {
-      // set availability to the nearest robot
-    // cout << "6" << endl;
-    
     nearestEntity->SetAvailability(false);
     available = false;
     pickedUp = false;
-
-    // cout << "7" << endl;
-
     destination = nearestEntity->GetPosition();
     Vector3 finalDestination = nearestEntity->GetDestination();
-
-    // cout << "8" << endl;
     toRobot = new BeelineStrategy(position, destination);
-
-    // std::vector< std::vector<float> > graphNodes = 
-
     std::string strat = nearestEntity->GetStrategyName();
-    if (strat == "astar"){
-      // cout << "9" << endl;
-
+    if (strat == "astar") {
       toFinalDestination =
-        new JumpDecorator(new AstarStrategy(destination, finalDestination, graph));
-    }
-    else if (strat == "dfs"){
+        new JumpDecorator(new AstarStrategy(
+          destination, finalDestination, graph));
+    } else if (strat == "dfs") {
       toFinalDestination =
-        new SpinDecorator(new JumpDecorator(new DfsStrategy(destination, finalDestination, graph)));
-    }
-    else if (strat == "dijkstra"){
+        new SpinDecorator(new JumpDecorator(
+          new DfsStrategy(destination, finalDestination, graph)));
+    } else if (strat == "dijkstra") {
       toFinalDestination =
-        new JumpDecorator(new SpinDecorator(new DijkstraStrategy(destination, finalDestination, graph)));
-    }
-    else {
+        new JumpDecorator(new SpinDecorator(
+          new DijkstraStrategy(destination, finalDestination, graph)));
+    } else {
       toFinalDestination = new BeelineStrategy(destination, finalDestination);
     }
   }
 }
 
-
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
   BatteryTracker *tracker = BatteryTracker::getInstance();
   if (available) {
-    cout << "calling getne" << endl;
     GetNearestEntity(scheduler);
   }
   if (toRobot) {
-    cout << "2robot" << endl;
     toRobot->Move(this, dt);
-    cout << "moved" << endl;
     this->distance += dt;
-
     tracker->updateDistance(this, this->distance);
-    // cout << toRobot->IsCompleted() << endl;
     if (toRobot->IsCompleted()) {
-      cout << "here under completed" << endl;
       delete toRobot;
       toRobot = nullptr;
       pickedUp = true;
     }
-    // cout << "available: " << available << endl;
-  }
-  else if (toFinalDestination) {
-    // cout << "3" << endl;
-    // cout << (this->GetDetails())["type"] << endl;
+  } else if (toFinalDestination) {
     toFinalDestination->Move(this, dt);
     this->distance += dt;
     tracker->updateDistance(this, this->distance);
-
     if (nearestEntity && pickedUp) {
-      // cout << "4" << endl;
       nearestEntity->SetPosition(position);
       nearestEntity->SetDirection(direction);
     }
-
     if (toFinalDestination->IsCompleted()) {
       tracker->updateTripCount(this);
-      cout << "end of trip" << endl;
       delete toFinalDestination;
       toFinalDestination = nullptr;
       nearestEntity = nullptr;
       available = true;
       pickedUp = false;
-
-    //   this->distance = 0.0;
     }
   }
 }
@@ -193,16 +153,15 @@ Drone& Drone::operator=(const Drone& drone) {
   this->available = drone.available;
   this->pickedUp = drone.pickedUp;
   this->nearestEntity = nullptr;
-  *(dynamic_cast<PathStrategy*>(this->toRobot)) = *(dynamic_cast<PathStrategy*>(drone.toRobot));
-  *(dynamic_cast<PathStrategy*>(this->toFinalDestination)) = *(dynamic_cast<PathStrategy*>(drone.toFinalDestination));
+  *(dynamic_cast<PathStrategy*>(this->toRobot)) =
+  *(dynamic_cast<PathStrategy*>(drone.toRobot));
+  *(dynamic_cast<PathStrategy*>(this->toFinalDestination)) =
+   *(dynamic_cast<PathStrategy*>(drone.toFinalDestination));
 
   // this->graph = drone.graph;
   this->SetGraph(drone.graph);
-  
-  cout << "DEEP COPY!!!" << endl;
-
   return *this;
-    
 }
+
 
 
