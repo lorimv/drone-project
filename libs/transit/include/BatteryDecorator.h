@@ -13,6 +13,7 @@
    private:
     float charge = 10;
     IStrategy* toCharger = nullptr;
+    IStrategy* toOrigin = nullptr;
     bool charging = false;
     IEntity* simDrone = new Drone();
 

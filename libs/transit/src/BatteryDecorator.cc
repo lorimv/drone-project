@@ -6,6 +6,7 @@ using namespace std;
 BatteryDecorator::~BatteryDecorator() {
   delete drone;
   delete toCharger;
+  delete toOrigin;
 }
 
 bool BatteryDecorator::NeedsCharge(double dt, std::vector<IEntity*> scheduler) {
@@ -95,6 +96,8 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
        
         toCharger = new BeelineStrategy(drone->GetPosition(), 
                                         GetNearestCharger(drone, scheduler)->GetPosition());
+        toOrigin = new BeelineStrategy(GetNearestCharger(drone, scheduler)->GetPosition(),
+                                        drone->GetPosition());
         cout << "we need charge:" << endl;
       }  
       cout << "Under needs charge()" << endl;
@@ -115,6 +118,17 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
       return;
     } else {
       toCharger->Move(drone, dt);
+      return;
+    }
+  }
+  else if (toOrigin) {
+    if (toOrigin->IsCompleted()) {
+      cout << "Toorigin completed" << endl;
+      delete toOrigin;
+      toOrigin = nullptr;
+      return;
+    } else {
+      toOrigin->Move(drone, dt);
       return;
     }
   }
