@@ -27,7 +27,7 @@ Originally, our idea was to first check to see if there’s sufficient energy le
 
 Ultimately, we chose to have the Drone automatically charge when its battery falls under 20%. This method has the added bonus of allowing the drone to charge between trips, rather than having to check as a trip is scheduled. With the added battery function, the simulation ends up being more realistic and data collection offers more insight by accounting for downtime needed for refueling in the  drones’ routes. This feature is not interactable, with DroneFactory now creating Drones within a battery wrapper by default.
 
--Link to Docker Submission:
+-Link to Docker Submission: https://hub.docker.com/r/molitorgj/hwk4_sim
 To build this docker image, you must navigate to the directory containing your Dockerfile, then run:
 docker build -t <docker_username>/hwk4_sim .
 
