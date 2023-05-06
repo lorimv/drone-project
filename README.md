@@ -4,7 +4,7 @@ Team Number: 46
 Member Names: Joseph Langevin (lang1107), Janani Kannan (kanna128), Gabe Molitor (molit104), Lorenzo Vega (vega0041)
 
 
--What is the project about (overview of the whole project, not just the hw4)?
+-What is the project about:
 The goal of this project is to create an environment for testing the functionality of a battery powered drone delivery system in a simulated environment. We wanted to extend the drone delivery system we made in class to be more realistic in its implementation by making the drones battery powered, and then collecting data from the simulation in the form of .csv files. By collecting data from the simulation and comparing results while changing the number of drones and battery charging stations, we can develop an optimal strategy for implementing drone infrastructure on the U of M Twin Cities campus.
 
 
@@ -18,7 +18,7 @@ The simulation lets us schedule trips from one destination to another within the
 -New Feature (Singleton)
 Our first feature is data collection via the Singleton Design pattern. It repeatedly collects data information regarding the Drones in our simulation system. This data includes total distance traveled, total decrease in fuel, number of trips, and number of stops at recharge stations. This is significantly interesting as our data offers insights into the performance of the various Routing Algorithms. From our CSV one is able to determine the distance a strategy travels, along with total fuel consumption of a drone using this particular strategy. It adds to existing work as we had to implement the Singleton design pattern as a class and had to include various update functions to accurately capture the data. We implemented this with Singleton as it provides a single reference only into a class; this is beneficial since all of the data about the drone can be accessed through this one class. Our new feature will automatically collect data throughout the simulation. To get this data to be outputted, click the Print CSV button. Within the current directory (top folder), this data will be represented in a CSV file called DataLog.csv.
 
--New Feature (Battery):
+-New Feature (Decorator):
 Our second feature that we implemented to our simulation was a battery system, including individual batteries that power drones and deplete over time, as well as charging stations for the drones to recharge their batteries with. We decided to use the decorator design pattern because it is an efficient way to add new functionality to a pre-existing object without changing any base implementation, thus keeping the program open to extension. 
 
 Our new decorator overrides the original drone logic for moving between trips. We created an abstract DroneDecorator which contains a Drone. DroneDecorator inherits from Drone, and automatically calls the corresponding methods on this drone. BatteryDecorator inherits from this template, and overwrites the relevant methods (in this case Update()). BatteryDecorator keeps track of the charge in a float, decrementing it as the drone moves. Its Update() method reroutes the drone to a charger if the battery falls below 20%. Along with this, we added a charger factory, which creates charger entities placed around the map according to the json file.
