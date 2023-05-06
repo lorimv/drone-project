@@ -14,6 +14,8 @@
     float charge = 100;
     IStrategy* toCharger = nullptr;
     bool charging = false;
+    IEntity* simDrone = new Drone();
+
   
    public:
     /**
