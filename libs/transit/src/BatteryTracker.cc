@@ -40,7 +40,8 @@ void BatteryTracker::writeToCSV() {
       int distance = it->second;
       float batteryLevel = batteryLevelsMap[it->first];
       int tripCount = numberOfTrips[it->first];
+      int stationVisits = rechargeStationVisits[it->first];
       DataLogger << name << "," << distance << "," <<
-      batteryLevel << "," << tripCount << "," << endl;
+      batteryLevel << "," << tripCount << "," << stationVisits << endl;
     }
 }
