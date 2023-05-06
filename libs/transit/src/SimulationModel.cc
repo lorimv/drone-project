@@ -61,7 +61,6 @@ void SimulationModel::ScheduleTrip(JsonObject& details) {
       scheduler.push_back(entity);
       break;
     } else if (typeTemp.compare("charger") == 0) {
-        std::cout << "CHARGER ADDED!" << std::endl;
         scheduler.push_back(entity);
     }
   }

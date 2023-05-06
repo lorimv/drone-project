@@ -109,7 +109,7 @@
       	    "type": "drone",
             "name": "DroneThree",
       	    "mesh": "assets/model/drone.glb",
-      	    "position": [500.292, 320, -228.623],
+      	    "position": [450.292, 320, -228.623],
       	    "scale": [0.1, 0.1, 0.1],
       	    "rotation": [0, 0, 0, 0],
             "direction": [1,0,0],
