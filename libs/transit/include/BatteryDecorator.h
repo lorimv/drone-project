@@ -11,7 +11,7 @@
  */
   class BatteryDecorator : public DroneDecorator {
    private:
-    float charge = 100;
+    float charge = 10;
     IStrategy* toCharger = nullptr;
     bool charging = false;
     IEntity* simDrone = new Drone();

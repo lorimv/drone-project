@@ -91,7 +91,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
     // cout << 
     // cout << "2a" << endl;
     if (!(drone->GetAvailability())){//if it found a trip...
-      if (NeedsCharge(dt, scheduler)){
+      if (charge < 20){
        
         toCharger = new BeelineStrategy(drone->GetPosition(), 
                                         GetNearestCharger(drone, scheduler)->GetPosition());
@@ -131,7 +131,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler){
     // cout << "dt: " << dt  << endl;
     // cout << "after divide: " << (new_drone->getDistance() / dt) << endl;
     // cout << "new charge: " << charge - ((new_drone->getDistance() / dt) * 0.00000001) << endl;
-    charge -= (dt * 0.1);
+    charge -= (dt * 0.8);
     // cout << "4a" << endl;
     //BatteryTracker *tracker;
     //tracker = tracker->getInstance();

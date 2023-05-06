@@ -34,4 +34,3 @@ PathStrategy& PathStrategy::operator=(const PathStrategy& pathS){
   return *this;
 }
 
-  *(dynamic_cast<Drone*>(simDrone)) = *(dynamic_cast<Drone*>(drone));
