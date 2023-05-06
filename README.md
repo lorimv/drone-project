@@ -9,7 +9,7 @@ The goal of this project is to create an environment for testing the functionali
 
 
 -How to run the simulation:
-First, type "make -j" in the top level folder
+First, type "make -j" in the top level folder.
 Then, run the command "./build/bin/transit_service <PORT> apps/transit_service/web/" where PORT is the port number to specify
 
 -What does the simulation do specifically?
