@@ -1,5 +1,6 @@
 #include "AstarStrategy.h"
 #include "routing/astar.h"
+using namespace std;
 
 AstarStrategy::AstarStrategy(Vector3 pos, Vector3 des,
                              const routing::IGraph* g) {
@@ -7,3 +8,4 @@ AstarStrategy::AstarStrategy(Vector3 pos, Vector3 des,
   std::vector<float> end   = {des[0], des[1], des[2]};
   path = g->GetPath(start, end, AStar::Default());
 }
+

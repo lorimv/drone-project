@@ -4,6 +4,7 @@ BeelineStrategy::BeelineStrategy(Vector3 position, Vector3 destination)
   : position(position), destination(destination) {}
 
 void BeelineStrategy::Move(IEntity* entity, double dt) {
+//   std::cout << "calling beeline strat" << std::endl;
   if (IsCompleted())
     return;
 

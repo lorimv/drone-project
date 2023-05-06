@@ -10,6 +10,14 @@
 #include "DijkstraStrategy.h"
 #include "JumpDecorator.h"
 #include "SpinDecorator.h"
+using namespace std;
+
+Drone::Drone() {
+  position = {0, 0, 0};
+  direction = {0, 0, 0};
+  speed = 0;
+  available = true;
+}
 
 Drone::Drone(JsonObject& obj) : details(obj) {
   JsonArray pos(obj["position"]);
@@ -20,14 +28,23 @@ Drone::Drone(JsonObject& obj) : details(obj) {
   speed = obj["speed"];
 
   available = true;
+//   tracker = tracker->getInstance();
 }
 
 Drone::~Drone() {
   // Delete dynamically allocated variables
-  delete graph;
-  delete nearestEntity;
-  delete toRobot;
-  delete toFinalDestination;
+  if (graph) {
+    delete graph;
+  }
+  if (nearestEntity) {
+    delete nearestEntity;
+  }
+  if (toRobot) {
+    delete toRobot;
+  }
+  if (toFinalDestination) {
+    delete toFinalDestination;
+  }
 }
 
 void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
@@ -41,40 +58,41 @@ void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
       }
     }
   }
-
   if (nearestEntity) {
-      // set availability to the nearest entity
     nearestEntity->SetAvailability(false);
     available = false;
     pickedUp = false;
-
     destination = nearestEntity->GetPosition();
     Vector3 finalDestination = nearestEntity->GetDestination();
-
     toRobot = new BeelineStrategy(position, destination);
-
     std::string strat = nearestEntity->GetStrategyName();
-    if (strat == "astar")
+    if (strat == "astar") {
       toFinalDestination =
-        new JumpDecorator(new AstarStrategy(destination, finalDestination, graph));
-    else if (strat == "dfs")
+        new JumpDecorator(new AstarStrategy(
+          destination, finalDestination, graph));
+    } else if (strat == "dfs") {
       toFinalDestination =
-        new SpinDecorator(new JumpDecorator(new DfsStrategy(destination, finalDestination, graph)));
-    else if (strat == "dijkstra")
+        new SpinDecorator(new JumpDecorator(
+          new DfsStrategy(destination, finalDestination, graph)));
+    } else if (strat == "dijkstra") {
       toFinalDestination =
-        new JumpDecorator(new SpinDecorator(new DijkstraStrategy(destination, finalDestination, graph)));
-    else
+        new JumpDecorator(new SpinDecorator(
+          new DijkstraStrategy(destination, finalDestination, graph)));
+    } else {
       toFinalDestination = new BeelineStrategy(destination, finalDestination);
+    }
   }
 }
 
 void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
-  if (available)
+  BatteryTracker *tracker = BatteryTracker::getInstance();
+  if (available) {
     GetNearestEntity(scheduler);
-
+  }
   if (toRobot) {
     toRobot->Move(this, dt);
-
+    this->distance += dt;
+    tracker->updateDistance(this, this->distance);
     if (toRobot->IsCompleted()) {
       delete toRobot;
       toRobot = nullptr;
@@ -82,13 +100,14 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
     }
   } else if (toFinalDestination) {
     toFinalDestination->Move(this, dt);
-
+    this->distance += dt;
+    tracker->updateDistance(this, this->distance);
     if (nearestEntity && pickedUp) {
       nearestEntity->SetPosition(position);
       nearestEntity->SetDirection(direction);
     }
-
     if (toFinalDestination->IsCompleted()) {
+      tracker->updateTripCount(this);
       delete toFinalDestination;
       toFinalDestination = nullptr;
       nearestEntity = nullptr;
@@ -119,3 +138,30 @@ void Drone::Jump(double height) {
     }
   }
 }
+
+Drone& Drone::operator=(const Drone& drone) {
+  IEntity::operator=(drone);
+
+  this->details = drone.details;
+  this->position = drone.position;
+  this->direction = drone.direction;
+  this->color = drone.color;
+  this->jumpHeight = drone.jumpHeight;
+  this->goUp = drone.goUp;
+  this->destination = drone.destination;
+  this->speed = drone.speed;
+  this->available = drone.available;
+  this->pickedUp = drone.pickedUp;
+  this->nearestEntity = nullptr;
+  *(dynamic_cast<PathStrategy*>(this->toRobot)) =
+  *(dynamic_cast<PathStrategy*>(drone.toRobot));
+  *(dynamic_cast<PathStrategy*>(this->toFinalDestination)) =
+   *(dynamic_cast<PathStrategy*>(drone.toFinalDestination));
+
+  // this->graph = drone.graph;
+  this->SetGraph(drone.graph);
+  return *this;
+}
+
+
+

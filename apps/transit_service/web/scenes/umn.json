@@ -2,6 +2,75 @@
     {
         "command": "CreateEntity",
       	"params": {
+      	    "type": "charger",
+            "name": "Charger1",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [-600.292, 240, -150.623],
+      	    "scale": [1, 1, 1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0.4, 0.6, 0.4]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "charger",
+            "name": "Charger2",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [200.292, 240, 575.623],
+      	    "scale": [1, 1, 1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0.4, 0.6, 0.4]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "charger",
+            "name": "Charger3",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [700.292, 270, 460.623],
+      	    "scale": [1, 1, 1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0.4, 0.6, 0.4]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "charger",
+            "name": "Charger4",
+      	    "mesh": "assets/model/battery.glb",
+      	    "position": [1000.292, 270, -360.623],
+      	    "scale": [1, 1, 1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 0.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0.4, 0.6, 0.4]
+    	  }
+    },
+   
+    {
+        "command": "CreateEntity",
+      	"params": {
       	    "type": "drone",
             "name": "Drone",
       	    "mesh": "assets/model/drone.glb",
@@ -13,9 +82,45 @@
             "radius": 1.0,
       	    "start": 2.0,
       	    "duration": 2.0,
-            "offset": [0, 0.6, 0]
+            "offset": [0.4, 0.6, 0.4]
     	  }
     },
+
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "drone",
+            "name": "DroneTwo",
+      	    "mesh": "assets/model/drone.glb",
+      	    "position": [500.292, 320, -228.623],
+      	    "scale": [0.1, 0.1, 0.1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 30.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0.4, 0.6, 0.4]
+    	  }
+    },
+    {
+        "command": "CreateEntity",
+      	"params": {
+      	    "type": "drone",
+            "name": "DroneThree",
+      	    "mesh": "assets/model/drone.glb",
+      	    "position": [450.292, 320, -228.623],
+      	    "scale": [0.1, 0.1, 0.1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 30.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0,
+            "offset": [0.4, 0.6, 0.4]
+    	  }
+    },
+    
     {
         "command": "CreateEntity",
       	"params": {

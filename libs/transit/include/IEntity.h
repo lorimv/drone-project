@@ -29,10 +29,12 @@ class IEntity {
     currentId++;
   }
 
+  IEntity(const IEntity& entity) : id(entity.id), name(entity.name) {
+  }
   /**
    * @brief Virtual destructor for IEntity.
    */
-  virtual ~IEntity() { delete graph; }
+  virtual ~IEntity() { if (graph) {delete graph; }}
 
   /**
    * @brief Gets the ID of the entity.
@@ -113,7 +115,7 @@ class IEntity {
    * @brief Sets the graph object used by the entity in the simulation.
    * @param graph The IGraph object to be used.
    */
-  void SetGraph(const IGraph* graph) { this->graph = graph; }
+  virtual void SetGraph(const IGraph* graph) { this->graph = graph; }
 
   /**
    * @brief Sets the position of the entity.
@@ -151,13 +153,28 @@ class IEntity {
    */
   virtual void Jump(double height) {}
 
+  virtual void GetNearestEntity(std::vector<IEntity*> scheduler) {}
+
   virtual float Random(float Min, float Max) {
     return ((float(rand()) / float(RAND_MAX)) * (Max - Min)) + Min;
+  }
+
+  std::string GetName() { return name; }
+
+  void SetName(std::string name) {
+    this->name = name;
+  }
+
+  virtual IEntity& operator=(const IEntity& entity) {
+    this->id = entity.id;
+    this->name = entity.name;
+    return *this;
   }
 
  protected:
   int id;
   const IGraph* graph;
+  std::string name;
 };
 
 #endif

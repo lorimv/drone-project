@@ -53,6 +53,10 @@ public:
                 SendEntity("UpdateEntity", *it->second, false);
             }
         }
+        else if(cmd == "CSV") {
+            // writing to csv logic
+            model.writeToCSV();
+        }
     }
 
     void SendEntity(const std::string& event, const IEntity& entity, bool includeDetails) {

@@ -4,6 +4,7 @@
 #include "RobotFactory.h"
 #include "HumanFactory.h"
 #include "HelicopterFactory.h"
+#include "ChargerFactory.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -12,6 +13,7 @@ SimulationModel::SimulationModel(IController& controller)
   AddFactory(new RobotFactory());
   AddFactory(new HumanFactory());
   AddFactory(new HelicopterFactory());
+  AddFactory(new ChargerFactory());
 }
 
 SimulationModel::~SimulationModel() {
@@ -47,17 +49,19 @@ void SimulationModel::ScheduleTrip(JsonObject& details) {
   JsonArray end = details["end"];
   std::cout << name << ": " << start << " --> " << end << std::endl;
 
-  for (auto entity : entities) {  // Add the entity to the scheduler
+  for (auto entity : entities) {  // Add the entity to scheduler
     JsonObject detailsTemp = entity->GetDetails();
     std::string nameTemp = detailsTemp["name"];
     std::string typeTemp = detailsTemp["type"];
-    if (name.compare(nameTemp) == 0 && typeTemp.compare("robot") == 0 &&
+    if (name.compare(nameTemp) == 0 && (typeTemp.compare("robot") == 0) &&
         entity->GetAvailability()) {
       std::string strategyName = details["search"];
       entity->SetDestination(Vector3(end[0], end[1], end[2]));
       entity->SetStrategyName(strategyName);
       scheduler.push_back(entity);
       break;
+    } else if (typeTemp.compare("charger") == 0) {
+        scheduler.push_back(entity);
     }
   }
   controller.SendEventToView("TripScheduled", details);
@@ -69,6 +73,12 @@ void SimulationModel::Update(double dt) {
     entities[i]->Update(dt, scheduler);
     controller.UpdateEntity(*entities[i]);
   }
+}
+
+void SimulationModel::writeToCSV() {
+    BatteryTracker *tracker;
+    tracker = tracker->getInstance();
+    tracker->writeToCSV();
 }
 
 void SimulationModel::AddFactory(IEntityFactory* factory) {

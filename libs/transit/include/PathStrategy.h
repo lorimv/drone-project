@@ -35,6 +35,8 @@ class PathStrategy : public IStrategy {
    * @return True if complete, false if not complete
    */
   virtual bool IsCompleted();
+
+  PathStrategy& operator=(const PathStrategy& pathS);
 };
 
 #endif  // PATH_STRATEGY_H_
