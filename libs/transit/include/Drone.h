@@ -18,12 +18,10 @@
  */
 class Drone : public IEntity {
  public:
- 
   /**
    * @brief Default drone constructor
    */
   Drone();
- 
   /**
    * @brief Drones are created with a name
    * @param obj JSON object containing the drone's information
@@ -125,12 +123,11 @@ class Drone : public IEntity {
    * @param height The height at which the drone should jump
    */
   void Jump(double height);
-
   /**
    * @brief Removing the copy constructor and assignment operator
    * so that drones cannot be copied.
    */
-  Drone(const Drone& drone) 
+  Drone(const Drone& drone)
     : IEntity(drone),
       details(drone.details),
       position(drone.position),
@@ -141,22 +138,18 @@ class Drone : public IEntity {
       destination(drone.destination),
       speed(drone.speed),
       available(drone.available),
-      pickedUp(drone.pickedUp) 
-      {
+      pickedUp(drone.pickedUp) {
         this->nearestEntity = nullptr;
         this->toRobot = nullptr;
         this->toFinalDestination = nullptr;
-
-        //this->graph = drone.graph;
         this->SetGraph(drone.graph);
-  
-    std::cout << "DEEP COPY!!!" << std::endl;
 }
 
   Drone& operator=(const Drone& drone);
 
   double getDistance() const { return distance; }
-  void setDistance(double newDistance) { std::cout << "setting distanec" << std::endl; distance = newDistance;}
+  void setDistance(double newDistance) { std::cout
+  << "setting distanec" << std::endl; distance = newDistance;}
 
  private:
   JsonObject details;
@@ -172,8 +165,7 @@ class Drone : public IEntity {
   IEntity* nearestEntity = nullptr;
   IStrategy* toRobot = nullptr;
   IStrategy* toFinalDestination = nullptr;
-
-  double distance; 
+  double distance;
   int tripCount;
   int rechargeStationVisits;
 //   BatteryTracker *tracker;

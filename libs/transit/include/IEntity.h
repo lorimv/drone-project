@@ -28,12 +28,9 @@ class IEntity {
     id = currentId;
     currentId++;
   }
-  
-  IEntity(const IEntity& entity) : id(entity.id), name(entity.name) {
-    //this->id = other.id;
-    //this->name = other.name;
-  }
 
+  IEntity(const IEntity& entity) : id(entity.id), name(entity.name) {
+  }
   /**
    * @brief Virtual destructor for IEntity.
    */
@@ -155,7 +152,7 @@ class IEntity {
    * @param height The height to make the entity jump.
    */
   virtual void Jump(double height) {}
-  
+
   virtual void GetNearestEntity(std::vector<IEntity*> scheduler) {}
 
   virtual float Random(float Min, float Max) {
@@ -164,18 +161,15 @@ class IEntity {
 
   std::string GetName() { return name; }
 
-  void SetName(std::string name){
+  void SetName(std::string name {
     this->name = name;
   }
-  
+
   virtual IEntity& operator=(const IEntity& entity) {
     this->id = entity.id;
     this->name = entity.name;
-    std::cout << "ICOPY!!!" << std::endl;
     return *this;
   }
-  
-  
 
  protected:
   int id;
