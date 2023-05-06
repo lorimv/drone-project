@@ -36,9 +36,9 @@ Drone::~Drone() {
   if (graph) {
     delete graph;
   }
-//  if (nearestEntity) {
-//    delete nearestEntity;
-//  }
+  if (nearestEntity) {
+    delete nearestEntity;
+  }
   if (toRobot) {
     delete toRobot;
   }
@@ -193,8 +193,8 @@ Drone& Drone::operator=(const Drone& drone) {
   this->available = drone.available;
   this->pickedUp = drone.pickedUp;
   this->nearestEntity = nullptr;
-  this->toRobot = drone.toRobot;
-  this->toFinalDestination = drone.toFinalDestination;
+  *(dynamic_cast<PathStrategy*>(this->toRobot)) = *(dynamic_cast<PathStrategy*>(drone.toRobot));
+  *(dynamic_cast<PathStrategy*>(this->toFinalDestination)) = *(dynamic_cast<PathStrategy*>(drone.toFinalDestination));
 
   // this->graph = drone.graph;
   this->SetGraph(drone.graph);

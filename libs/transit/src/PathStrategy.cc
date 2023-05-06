@@ -27,8 +27,11 @@ bool PathStrategy::IsCompleted() {
 }
 
 PathStrategy& PathStrategy::operator=(const PathStrategy& pathS){
+  std::cout << "P OVERRIDE!!" << std::endl;
   this->path = pathS.path;
   this->index = pathS.index;
   
   return *this;
 }
+
+  *(dynamic_cast<Drone*>(simDrone)) = *(dynamic_cast<Drone*>(drone));
