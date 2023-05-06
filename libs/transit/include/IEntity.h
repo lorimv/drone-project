@@ -161,7 +161,7 @@ class IEntity {
 
   std::string GetName() { return name; }
 
-  void SetName(std::string name {
+  void SetName(std::string name) {
     this->name = name;
   }
 
