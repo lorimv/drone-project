@@ -30,6 +30,7 @@ Ultimately, we chose to have the Drone automatically charge when its battery fal
 -Link to Docker Submission:
 
 -Link to Youtube video:
+https://youtu.be/m44BLDG9kzw
 
 -Sprint retrospective:
 Using sprints during our development process helped us approach the requirements of the assignment from a much more solid foundation than if we had simply chosen to work on it individually. By breaking up the project into smaller goals, and planning a sprint to maintain and manage those goals, we were able to define a much clearer plan for each of the tasks we completed. This project had both the largest scope and the least clearly defined set of instructions of any assignment we worked on this semester. By using the sprint structure, we were able to stay on track as we discovered new information and requirements, which helped us successfully adapt and implement all the different features needed for our extension much faster than if we hadn’t communicated during the process.
