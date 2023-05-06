@@ -72,7 +72,7 @@ void BatteryDecorator::Update(double dt, std::vector<IEntity*> scheduler) {
     }
   } else if (toCharger) {
     if (toCharger->IsCompleted()) {
-      tracker->updateStationVisitCount(this);
+      tracker->updateStationVisitCount(drone);
       delete toCharger;
       toCharger = nullptr;
       charging = true;
