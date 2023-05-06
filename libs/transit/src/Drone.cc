@@ -33,10 +33,18 @@ Drone::Drone(JsonObject& obj) : details(obj) {
 
 Drone::~Drone() {
   // Delete dynamically allocated variables
-  delete graph;
-  delete nearestEntity;
-  delete toRobot;
-  delete toFinalDestination;
+  if (graph) {
+    delete graph;
+  }
+//  if (nearestEntity) {
+//    delete nearestEntity;
+//  }
+  if (toRobot) {
+    delete toRobot;
+  }
+  if (toFinalDestination) {
+    delete toFinalDestination;
+  }
 }
 
 void Drone::GetNearestEntity(std::vector<IEntity*> scheduler) {
@@ -107,8 +115,9 @@ void Drone::Update(double dt, std::vector<IEntity*> scheduler) {
     GetNearestEntity(scheduler);
   }
   if (toRobot) {
-    // cout << "2" << endl;
+    cout << "2robot" << endl;
     toRobot->Move(this, dt);
+    cout << "moved" << endl;
     this->distance += dt;
 
     tracker->updateDistance(this, this->distance);
@@ -171,6 +180,7 @@ void Drone::Jump(double height) {
 }
 
 Drone& Drone::operator=(const Drone& drone) {
+  IEntity::operator=(drone);
 
   this->details = drone.details;
   this->position = drone.position;
@@ -182,15 +192,17 @@ Drone& Drone::operator=(const Drone& drone) {
   this->speed = drone.speed;
   this->available = drone.available;
   this->pickedUp = drone.pickedUp;
-  this->nearestEntity = drone.nearestEntity;
+  this->nearestEntity = nullptr;
   this->toRobot = drone.toRobot;
   this->toFinalDestination = drone.toFinalDestination;
 
   // this->graph = drone.graph;
   this->SetGraph(drone.graph);
-  this->id = drone.id;
-  this->name = drone.name;
+  
+  cout << "DEEP COPY!!!" << endl;
 
   return *this;
     
 }
+
+

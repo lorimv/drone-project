@@ -13,7 +13,7 @@
    private:
     float charge = 100;
     IStrategy* toCharger = nullptr;
-    bool charging;
+    bool charging = false;
   
    public:
     /**
@@ -21,7 +21,7 @@
      *
      * @param strategy the strategy to decorate onto
      */
-    BatteryDecorator(IEntity* drone) : DroneDecorator(drone) {charge = 100; charging = false;};
+    BatteryDecorator(IEntity* drone) : DroneDecorator(drone) {};
     
     /**
      * @brief BatteryDecorator Destructor

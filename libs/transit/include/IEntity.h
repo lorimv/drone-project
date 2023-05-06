@@ -28,11 +28,16 @@ class IEntity {
     id = currentId;
     currentId++;
   }
+  
+  IEntity(const IEntity& entity) : id(entity.id), name(entity.name) {
+    //this->id = other.id;
+    //this->name = other.name;
+  }
 
   /**
    * @brief Virtual destructor for IEntity.
    */
-  virtual ~IEntity() { delete graph; }
+  virtual ~IEntity() { if (graph) {delete graph; }}
 
   /**
    * @brief Gets the ID of the entity.
@@ -162,6 +167,15 @@ class IEntity {
   void SetName(std::string name){
     this->name = name;
   }
+  
+  virtual IEntity& operator=(const IEntity& entity) {
+    this->id = entity.id;
+    this->name = entity.name;
+    std::cout << "ICOPY!!!" << std::endl;
+    return *this;
+  }
+  
+  
 
  protected:
   int id;

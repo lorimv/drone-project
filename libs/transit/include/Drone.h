@@ -130,7 +130,29 @@ class Drone : public IEntity {
    * @brief Removing the copy constructor and assignment operator
    * so that drones cannot be copied.
    */
-  Drone(const Drone& drone) = delete;
+  Drone(const Drone& drone) 
+    : IEntity(drone),
+      details(drone.details),
+      position(drone.position),
+      direction(drone.direction),
+      color(drone.color),
+      jumpHeight(drone.jumpHeight),
+      goUp(drone.goUp),
+      destination(drone.destination),
+      speed(drone.speed),
+      available(drone.available),
+      pickedUp(drone.pickedUp) 
+      {
+        this->nearestEntity = nullptr;
+        this->toRobot = nullptr;
+        this->toFinalDestination = nullptr;
+
+        //this->graph = drone.graph;
+        this->SetGraph(drone.graph);
+  
+    std::cout << "DEEP COPY!!!" << std::endl;
+}
+
   Drone& operator=(const Drone& drone);
 
   double getDistance() const { return distance; }

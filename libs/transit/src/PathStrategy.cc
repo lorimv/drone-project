@@ -25,3 +25,10 @@ void PathStrategy::Move(IEntity* entity, double dt) {
 bool PathStrategy::IsCompleted() {
   return index >= path.size();
 }
+
+PathStrategy& PathStrategy::operator=(const PathStrategy& pathS){
+  this->path = pathS.path;
+  this->index = pathS.index;
+  
+  return *this;
+}
