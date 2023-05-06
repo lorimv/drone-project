@@ -9,8 +9,7 @@
 using namespace std;
 
 class BatteryTracker {
-
-    public:
+ public:
     /**
     * @brief Get the instance of the Singleton BatteryTracker class
     */
@@ -31,7 +30,6 @@ class BatteryTracker {
         /**
         * @brief Will increment tripCount for a particular drone
         * @param drone The particular drone that will have its BatteryLevel updated
-        * @param newCount new Count of trips taken by a drone
         */
         void updateTripCount(IEntity* drone);
         /**
@@ -39,17 +37,19 @@ class BatteryTracker {
         */
         void writeToCSV();
 
-        void updateStationVisitCount(IEntity* drone, int newCount);
-       
+        /**
+        * @brief Will increment the number of visits to a RechargeStation for a drone
+        * @param drone The drone to have its count incremented
+        */
+        void updateStationVisitCount(IEntity* drone);
 
-    private:
+ private:
         BatteryTracker();
         static BatteryTracker* instance;
         map<IEntity*, double> distancesMap;
-        map<IEntity*, float> batteryLevelsMap; // updated in BatteryDecorator
+        map<IEntity*, float> batteryLevelsMap;
         map<IEntity*, int> numberOfTrips;
-        map<IEntity*, int> rechargeStationVisits; // updated in BatteryDecorator
-
+        map<IEntity*, int> rechargeStationVisits;
 };
 
-#endif // BATTERY_TRACKER_H 
+#endif  // BATTERY_TRACKER_H
